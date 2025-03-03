@@ -51,7 +51,7 @@ func pdServer(w http.ResponseWriter, r *http.Request) {
 }
 
 func StartServer() *http.Server{
-	http.Handle("/", http.StripPrefix("/", http.FileServer(http.Dir("./dashboard"))))
+	//http.Handle("/", http.StripPrefix("/", http.FileServer(http.Dir("./dashboard"))))
 	http.HandleFunc("/pd", pdServer)
 	server := &http.Server{Addr: ":8080"}
 
