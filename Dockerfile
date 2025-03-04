@@ -35,8 +35,8 @@ COPY key.pem /etc/nginx/ssl/key.pem
 RUN mkdir -p /etc/nginx/ssl
 
 # Expose ports
-EXPOSE 8443  # HTTPS port
-EXPOSE 8080  # HTTP redirect port
+EXPOSE 8443
+EXPOSE 8081
 
 # Run the Go server and Nginx
 CMD ["/bin/sh", "-c", "./server & nginx -g 'daemon off;'"]
