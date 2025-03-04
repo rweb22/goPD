@@ -1,10 +1,8 @@
 {
-    "image": "mcr.microsoft.com/devcontainers/go:1-1.20-bullseye",
-    "forwardPorts": [8080],
-    "portsAttributes": {
-        "8080": {
-            "label": "Application",
-            "onAutoForward": "openPreview"
-        }
-    }
+  "name": "My Go Dashboard",
+  "image": "mcr.microsoft.com/vscode/devcontainers/base:ubuntu",
+  "features": {
+    "docker-in-docker": "latest"
+  },
+  "runArgs": ["--privileged"]
 }
