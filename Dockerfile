@@ -4,6 +4,7 @@ WORKDIR /app
 
 # Copy Go files and initialize module
 COPY *.go .
+COPY holidays.txt .
 RUN go mod init goPD
 RUN go mod tidy
 
