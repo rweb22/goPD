@@ -136,7 +136,7 @@ func fetchStockData(pdDatas map[string]interface{}, metacacheData map[int]map[st
 
 		if _, ok := data["data"]; ok {
 			if dataMap, ok := data["data"].(map[string]interface{}); ok {
-				t, err := time.Parse(time.RFC3339, dataMap["last_updated_at"].(string))
+				t, err := time.Parse(time.RFC3339, dataMap["last_updated_at"].In(loc).(string))
 				if err != nil {
 					fmt.Println("Error parsing time:", err)
 				} else {
