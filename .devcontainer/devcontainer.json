@@ -1,9 +1,0 @@
-{
-  "name": "My Go Dashboard",
-  "image": "mcr.microsoft.com/vscode/devcontainers/base:ubuntu",
-  "features": {
-    "docker-in-docker": "latest"
-  },
-  "forwardPorts": [8443, 8081],
-  "runArgs": ["--privileged"]
-}
