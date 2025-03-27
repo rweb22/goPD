@@ -250,7 +250,7 @@ func fetchDataLoop(pdDatas map[string]map[string]interface{}, stopChan <-chan os
 	expiryDates := make(map[string]string)
 	strikeDiffs := make(map[string]int)
 	strikeDiffs["BANKNIFTY"] = 100
-	strikeDiffs["NIFTYNXT50"] = 100
+	strikeDiffs["NIFTY"] = 50
 	strikeDiffs["RELIANCE"] = 10
 	var retries int = 15
 
@@ -283,11 +283,11 @@ func fetchDataLoop(pdDatas map[string]map[string]interface{}, stopChan <-chan os
 		if _, ok := data["derivatives"]; ok {
 			fmt.Println("✅ Successfully retrieved valid data!")
 			metacacheData["BANKNIFTY"] = make(map[int]map[string]int)
-			metacacheData["NIFTYNXT50"] = map[int]map[string]int {}
+			metacacheData["NIFTY"] = map[int]map[string]int {}
 			metacacheData["RELIANCE"] = map[int]map[string]int {}
 			var b bool = true
 			if derivatives, ok := data["derivatives"].(map[string]interface{}); ok {
-				for _, key := range []string{"BANKNIFTY", "NIFTYNXT50", "RELIANCE"} {
+				for _, key := range []string{"BANKNIFTY", "NIFTY", "RELIANCE"} {
 					if symbolData, ok := derivatives[key].(map[string]interface{}); ok {
 						if symbolDerivatives, ok := symbolData["derivatives"].(map[string]interface{}); ok {
 							b = b && extractMetacacheData(symbolDerivatives, metacacheData[key], expiryDates, key)
@@ -304,7 +304,7 @@ func fetchDataLoop(pdDatas map[string]map[string]interface{}, stopChan <-chan os
 				if nse, ok := nse_list.(map[string]interface{}); ok {
 					if nseIndices, ok := nse["NSE-INDICES"].(map[string]interface{}); ok {
 						if eq, ok := nseIndices["EQ"].(map[string]interface{}); ok {
-							for _, stock := range []string{"BANKNIFTY", "NIFTYNXT50"} {
+							for _, stock := range []string{"BANKNIFTY", "NIFTY"} {
 								if stockData, ok := eq[stock].(map[string]interface{}); ok {
 									if token, ok := stockData["instrument_token"].(float64); ok {
 										stockTokens[stock] = int(token)
@@ -378,7 +378,7 @@ func StartCollector(stopChan <-chan os.Signal) (time.Time, error) {
 	}
 
 	pdDatas := make(map[string]map[string]interface{})
-	stocks := []string{"BANKNIFTY", "NIFTYNXT50", "RELIANCE"}
+	stocks := []string{"BANKNIFTY", "NIFTY", "RELIANCE"}
 
 	for _, stock := range stocks {
 		pdDatas[stock] = make(map[string]interface{})
