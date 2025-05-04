@@ -3,8 +3,8 @@ FROM golang:1.21 AS builder
 WORKDIR /app
 
 # Copy Go files, a.txt, and initialize module
-COPY *.go .
-COPY holidays.txt .
+COPY *.go ./
+COPY holidays.txt ./
 RUN go mod init goPD
 RUN go mod tidy
 
