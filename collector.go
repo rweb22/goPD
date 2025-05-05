@@ -183,7 +183,7 @@ func fetchOptionsData(pdDatas map[string]map[string]interface{}, metacacheData m
 
 	now := tyme()
 	dateString := now.Format("2006-01-02")
-	fileName := fmt.Sprintf("%s.json", dateString)
+	fileName := fmt.Sprintf("/data/%s.json", dateString)
 
 	jsonData, err := json.MarshalIndent(pdDatas, "", "  ")
 	if err != nil {
