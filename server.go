@@ -19,7 +19,7 @@ func pdServer(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		fileName := fmt.Sprintf("%s.json", requestData["date"])
+		fileName := fmt.Sprintf("/data/%s.json", requestData["date"])
 		file, err := os.Open(fileName)
 		if err != nil {
 			http.Error(w, `{"error": "Data unavailable for this date."}`, http.StatusBadRequest)
