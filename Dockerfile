@@ -27,6 +27,8 @@ COPY dashboard /app/dashboard
 # Copy a.txt for the Go server to read
 COPY holidays.txt /app/holidays.txt
 
+VOLUME ["/data"]
+
 # Expose the port your Go server listens on (e.g., 8080)
 EXPOSE 8080
 
