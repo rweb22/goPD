@@ -12,5 +12,5 @@ docker build -t gopd .
 
 cmd 3:
 ```
-docker run -d -p 8443:8443 -p 8080:8080 gopd
+docker run -d -p 8080:8080 gopd
 ```
