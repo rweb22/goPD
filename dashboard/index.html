@@ -21,6 +21,10 @@
 </head>
 <body>
 
+    <div id="notification"></div>
+    <audio id="redAlert" src="https://cdn.pixabay.com/download/audio/2025/03/18/audio_bad452514b.mp3?filename=sound-effect-uk-tvla-tea-alarm-315339.mp3"></audio>
+    <audio id="greenAlert" src="https://cdn.pixabay.com/download/audio/2025/02/15/audio_daddb0f95f.mp3?filename=alarm-301729.mp3"></audio>
+
     <div class="container mt-4">
         <!-- Top Bar -->
         <div class="d-flex justify-content-between align-items-center p-3 bg-warning shadow-sm rounded">
@@ -47,10 +51,15 @@
             <button id="goButton" class="btn btn-danger">GO</button>
         </div>
 
-	<nav>
+	<nav class="d-flex justify-content-between align-items-center mb-3">
 		<div class="nav nav-tabs" id="pd-tabs" role="tablist">
 			<button class="nav-link active" id="oi-tab" data-bs-toggle="tab" type="button" role="tab" aria-selected="true">OI</button>
 			<button class="nav-link" id="volume-tab" data-bs-toggle="tab" type="button" role="tab" aria-selected="false">Volume</button>
+		</div>
+
+		<div class="input-group ms-3" style="max-width: 200px;">
+			<input type="number" min="0" class="form-control" id=thresholdInput placeholder="Enter number:" value="2">
+			<button class="btn btn-outline-warning" type="button" id="applyBtn">Apply</button>
 		</div>
 	</nav>
 

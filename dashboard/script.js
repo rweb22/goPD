@@ -9,12 +9,19 @@ document.addEventListener("DOMContentLoaded", function() {
     let pdi = "5";
     let pdc = "PD";
     let pdData = {}
+    let lastAlarm = null;
+    let pdt = 2;
+    let alarmON = true;
     // Initialize Bootstrap Datepicker
     $("#datepicker").datepicker({
         format: "yyyy-mm-dd",
         autoclose: true,
         todayHighlight: true
     }).datepicker("setDate", date);
+
+    const redAlert = document.getElementById("redAlert");
+    const greenAlert = document.getElementById("greenAlert");
+    const notification = document.getElementById("notification");
 
     // Function to Fetch Stock Data
     async function fetchStockData() {
@@ -81,6 +88,57 @@ document.addEventListener("DOMContentLoaded", function() {
 	    };
 
 	    Plotly.newPlot('chart', [traceA, traceB], layout);
+
+	    pd = pdData["PD"];
+	    price = pdData["stock_price"]
+
+	    if (pd[-1] > pdt * 1000000000 || pd[-1] < pdt * (-1000000000)) {
+		    triggerAlarm("greenAlert", `PD has crossed the ${pdt} Billion mark`, "success");
+	    }
+
+	    if (((pd[-1]-pd[-2])*(price[-1]-price[-2]) > 0) && ((pd[-2]-pd[-3])*(price[-2]-price[-3]) > 0)) {
+		    triggerAlarm("redAlert", `PD data anomaly detected`, "danger");
+	    }
+    }
+
+    function triggerAlarm(type, message, color) {
+	    if ((lastAlarm === type) || !alarmON) return;
+	    lastAlarm = type;
+
+	    if (type === "redAlert") {
+		    redAlert.play();
+	    } else if (type === "greenAlert") {
+		    greenAlert.play();
+	    }
+
+	    showToast(message, color);
+    }
+
+    function showToast(message, color) {
+	    const toastId = "toast- " + Date.now();
+	    const toast = document.createElement("div");
+	    toast.className = `toast align-items-center text-white bg-${color} border-0`;
+	    toast.setAttribute = ("role", "alert");
+	    toast.setAttribute = ("aria-live", "assertive");
+	    toast.setAttribute = ("aria-atomic", "true");
+	    toast.setAttribute = ("id", toastId);
+	    toast.innerHTML = `
+      		<div class="d-flex">
+        		<div class="toast-body">
+          			${message}
+        		</div>
+        		<button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      		</div>
+    		`;
+	    notification.appendChild(toast);
+
+	    const bsToast = new bootstrap.Toast(toast, { autohide: false });
+	    bsToast.show();
+
+	    toast.addEventListener('hidden.bs.toast', () => {
+		    if (toast.parentElement) toast.remove();
+		    lastAlarm = null;
+	    });
     }
 
     // "GO" Button Click Event
@@ -104,6 +162,17 @@ document.addEventListener("DOMContentLoaded", function() {
 		pdc = "PDV";
 	}
 	plotGraph();
+    });
+
+    document.getElementById('applyBtn').addEventListener('click', () => {
+	    const pdThreshold = parseFloat(document.getElementById('thresholdInput').value);
+	    if (!isNaN(pdThreshold) && pdThreshold > 0){
+		    pdt = pdThreshold;
+		    alarmON = true;
+	    } else {
+		    alert("Alarm turned OFF. Please enter a valid positive number.");
+		    alarmON = false;
+	    }
     });
 
     // Load default graph on page load

@@ -16,3 +16,10 @@ body {
 .nav-tabs .nav-link.active:focus {
     color: #c82333; /* Darker shade for hover/focus states */
 }
+
+#notification {
+	position: fixed;
+	bottom: 1rem;
+	right: 1rem;
+	z-index: 1055;
+}
