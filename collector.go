@@ -67,7 +67,7 @@ func getNextMarketOpen() time.Time {
 		nextTradeDay = nextTradeDay.Add(24 * time.Hour)
 	}
 
-	nextOpen := time.Date(nextTradeDay.Year(), nextTradeDay.Month(), nextTradeDay.Day(), 9, 15, 0, 0, loc)
+	nextOpen := time.Date(nextTradeDay.Year(), nextTradeDay.Month(), nextTradeDay.Day(), 8, 59, 0, 0, loc)
 	return nextOpen
 }
 
