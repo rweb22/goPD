@@ -22,12 +22,12 @@ RUN apk add --no-cache tzdata
 COPY --from=builder /app/server /app/server
 
 # Copy static files to be served by the Go server
-COPY dashboard /app/dashboard
+#COPY dashboard /app/dashboard
 
 # Copy a.txt for the Go server to read
 COPY holidays.txt /app/holidays.txt
 
-VOLUME ["/data"]
+VOLUME ["/data", "/app/dashboard"]
 
 # Expose the port your Go server listens on (e.g., 8080)
 EXPOSE 8080
