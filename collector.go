@@ -13,7 +13,7 @@ import (
 )
 
 const(
-	MarketOpen = "09:15"
+	MarketOpen = "08:59"
 	MarketClose = "15:30"
 )
 
