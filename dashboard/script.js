@@ -90,13 +90,16 @@ document.addEventListener("DOMContentLoaded", function() {
 	    Plotly.newPlot('chart', [traceA, traceB], layout);
 
 	    pd = pdData["PD"];
-	    price = pdData["stock_price"]
+	    price = pdData["stock_price"];
+	    let t1 = sortedTimes.at(-1);
+	    let t2 = sortedTimes.at(-2);
+	    let t3 = sortedTimes.at(-3);
 
-	    if (pd[-1] > pdt * 1000000000 || pd[-1] < pdt * (-1000000000)) {
+	    if (pd[t1] > pdt * 1000000000 || pd[t1] < pdt * (-1000000000)) {
 		    triggerAlarm("greenAlert", `PD has crossed the ${pdt} Billion mark`, "success");
 	    }
 
-	    if (((pd[-1]-pd[-2])*(price[-1]-price[-2]) > 0) && ((pd[-2]-pd[-3])*(price[-2]-price[-3]) > 0)) {
+	    if (((pd[t1]-pd[t2])*(price[t1]-price[t2]) > 0) && ((pd[t2]-pd[t3])*(price[t2]-price[t3]) > 0)) {
 		    triggerAlarm("redAlert", `PD data anomaly detected`, "danger");
 	    }
     }
