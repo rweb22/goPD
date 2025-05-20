@@ -13,7 +13,7 @@ import (
 )
 
 const(
-	MarketOpen = "09:01"
+	MarketOpen = "09:15"
 	MarketClose = "15:30"
 )
 
@@ -67,7 +67,7 @@ func getNextMarketOpen() time.Time {
 		nextTradeDay = nextTradeDay.Add(24 * time.Hour)
 	}
 
-	nextOpen := time.Date(nextTradeDay.Year(), nextTradeDay.Month(), nextTradeDay.Day(), 9, 01, 0, 0, loc)
+	nextOpen := time.Date(nextTradeDay.Year(), nextTradeDay.Month(), nextTradeDay.Day(), 9, 15, 0, 0, loc)
 	return nextOpen
 }
 
